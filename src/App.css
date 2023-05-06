@@ -1,38 +1,92 @@
-.App {
-  text-align: center;
+.classForm {
+    background-color: rgba( 255, 255, 255, 0.2);
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37);
+    backdrop-filter: blur( 2.5px);
+    -webkit-backdrop-filter: blur( 2.5px);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid rgba( 255, 255, 255, 0.18);
+    @apply m-auto p-4
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.sizePicker {
+    width: 49%;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+button,
+[type='button'] {
+    background-color: rgba(40, 52, 165, 0.789);
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.mainBlock {
+    background: rgb(179, 63, 251);
+    background: radial-gradient(circle, rgba(179, 63, 251, 1) 0%, rgba(70, 104, 252, 1) 100%);
+    @apply w-full flex flex-row items-center min-h-screen
 }
 
-.App-link {
-  color: #61dafb;
+.btnBook {
+    @apply p-2 rounded-xl bg-white px-8 text-center text-violet-800 font-semibold
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.btnClear {
+    @apply p-2 rounded-xl border-2 border-white px-8 text-center text-white font-semibold
+}
+
+.inputStyle {
+    @apply rounded-xl p-2 mb-1 text-gray-800 font-thin
+}
+
+.error {
+    @apply text-red-800 font-thin mb-4;
+}
+
+.colorBlock {
+    border-radius: 30% 70% 70% 30% / 30% 49% 51% 70%;
+    @apply absolute w-52 h-44 bg-pink-500 z-10;
+    animation: slideBack 30s linear infinite;
+}
+
+.colorBlock2 {
+    border-radius: 30% 70% 46% 54% / 30% 50% 50% 70%;
+    @apply absolute w-44 h-44 bg-indigo-500;
+    animation: slide 40s linear infinite;
+}
+
+.colorBlock3 {
+    border-radius: 30% 70% 70% 30% / 30% 49% 51% 70%;
+    @apply absolute w-32 h-32 bg-white;
+    animation: slideBack 50s linear infinite;
+}
+
+.textForInput {
+    @apply pb-2 text-white font-semibold
+}
+
+.styleBlock {
+    @apply flex flex-col mb-3
+}
+
+@keyframes slide {
+    0% {
+        transform: rotate(0deg);
+    }
+    50% {
+        transform: rotate(-180deg);
+    }
+    100% {
+        transform: rotate(-360deg);
+    }
+}
+
+@keyframes slideBack {
+    0% {
+        transform: rotate(0deg);
+    }
+    50% {
+        transform: rotate(-180deg);
+    }
+    100% {
+        transform: rotate(-360deg);
+    }
 }
