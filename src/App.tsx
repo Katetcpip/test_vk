@@ -1,5 +1,5 @@
 import { SmileOutlined } from '@ant-design/icons';
-import { notification, TimePicker, DatePicker} from 'antd';
+import { notification, DatePicker} from 'antd';
 import {useState} from 'react'
 import './App.css'
 import dateFormat from "dateformat";
@@ -143,7 +143,7 @@ const App = () => {
                     {timeIntervals.map( (el) => {
                         return (
                             
-                        JSON.stringify(new Date()).substr(1, 10) == date 
+                        JSON.stringify(new Date()).substr(1, 10) === date 
                         
                         ? String((new Date()).getHours()) < (el[0] + el[1]) && <Option value={el} key={el}>{el}</Option>   
 
