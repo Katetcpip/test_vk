@@ -26,15 +26,19 @@ button,
 }
 
 .btnBook {
-    @apply p-2 rounded-xl bg-white px-8 text-center text-violet-800 font-semibold
+    text-align: center !important;
 }
 
 .btnClear {
-    @apply p-2 rounded-xl border-2 border-white px-8 text-center text-white font-semibold
+    @apply p-2 rounded-md border-2 border-white px-8 text-center text-white font-semibold h-full
 }
 
 .inputStyle {
-    @apply rounded-xl p-2 mb-1 text-gray-800 font-thin
+    @apply rounded-md p-2 mb-1 text-gray-900 font-thin
+}
+
+.radioStyle {
+    @apply text-white font-semibold
 }
 
 .error {
