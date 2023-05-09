@@ -188,6 +188,7 @@ const App = () => {
             <div className='colorBlock md:top-80 md:left-96 top-44 left-10'></div>
             <div className='colorBlock2 md:bottom-44 md:right-96 bottom-20 right-20'></div>
             <div className='colorBlock3 md:top-44 md:right-96 top-10 right-20'></div>
+            <div className='w-full text-base- text-gray-700 text-center pt-10'>github: Katetcpip</div>
         </div>
     )
 }

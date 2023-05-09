@@ -22,7 +22,7 @@ button,
 .mainBlock {
     background: rgb(179, 63, 251);
     background: radial-gradient(circle, rgba(179, 63, 251, 1) 0%, rgba(70, 104, 252, 1) 100%);
-    @apply w-full flex flex-row items-center min-h-screen
+    @apply w-full flex flex-col items-center min-h-screen
 }
 
 .btnBook {
