@@ -33,7 +33,7 @@ const App = () => {
     const [participants, setParticipants] = useState(1);
 
     //@ts-ignore
-    const [reserv, setReserv] = useState(JSON.parse(localStorage.getItem('reservation')))   
+    const [reserv, setReserv] = useState( (JSON.parse(localStorage.getItem('reservation'))) === null ? Array : JSON.parse(localStorage.getItem('reservation')))   
    
     useEffect(() => {
         localStorage.setItem("reservation", JSON.stringify(reserv))
@@ -63,9 +63,16 @@ const App = () => {
             Participants: participants,
             Messsage: msg
         }
+        const dataForStorage = {
+            Tower : tower,
+            Floor: floor,
+            Room: room,
+            Data: dataReserv,
+            Time : time
+        }
         console.log(JSON.stringify(data))
         openNotification()
-        setReserv([...reserv, data])
+        setReserv([...reserv, dataForStorage])
     }
 
     const onChange = (date:any, dateString:any) => {
@@ -157,22 +164,24 @@ const App = () => {
 
                     {timeIntervals.map((el) => {
                         return (
-                            
-                        JSON.stringify(new Date()).substr(1, 10) === date 
+                        reserv.lenght !== 0 
+                        ?  (JSON.stringify(new Date()).substr(1, 10) === date)
 
-                    //     ? String((new Date()).getHours()) < (el[0] + el[1]) && <Option value={el} key={el}>{el}</Option>
+                            ? ((reserv.find((el:any) => el.Tower === tower) !== undefined) && (reserv.find((el:any) => el.Floor === floor) !== undefined))           
 
-                    // : String((new Date()).getHours()) < (el[0] + el[1]) &&  <Option value={el} key={el}>{el}</Option>) 
-
-                        //@ts-ignore
-                        ? ((reserv.find((el:any) => el.Tower === tower) !== undefined) && (reserv.find((el:any) => el.Floor === floor) !== undefined))           
-
-                            ? String((new Date()).getHours()) < (el[0] + el[1]) && <Option disabled value={el} key={el}>{el}</Option>  
-                            : String((new Date()).getHours()) < (el[0] + el[1]) && <Option value={el} key={el}>{el}</Option>
+                                ? String((new Date()).getHours()) < (el[0] + el[1]) && <Option disabled value={el} key={el}>{el}</Option>  
+                                : String((new Date()).getHours()) < (el[0] + el[1]) && <Option value={el} key={el}>{el}</Option>
                             //@ts-ignore
-                        : (reserv.filter((el:any) => el.Tower === tower && el.Floor === floor && el.Room === room && el.Data === date && el.Time === time).length) > 0
-                            ? String((new Date()).getHours()) < (el[0] + el[1]) &&  <Option disabled value={el} key={el}>{el}</Option>  
-                            : String((new Date()).getHours()) < (el[0] + el[1]) &&  <Option value={el} key={el}>{el}</Option>)   
+                            : reserv.find((el:any) => el.Tower === tower && el.Floor === floor && el.Room === room && el.Data === date && el.Time === time) !== undefined
+
+                                ?  <Option  value={el} key={el}>{el}</Option>  
+                                :  <Option disabled value={el} key={el}>{el}</Option>
+
+                        : <Option value={el} key={el}>{el}</Option> )
+                            
+                        // ? String((new Date()).getHours()) < (el[0] + el[1]) && <Option value={el} key={el}>{el}</Option>
+                        // : <Option value={el} key={el}>{el}</Option> )
+
                                                        
                     })}
                 </Select>
