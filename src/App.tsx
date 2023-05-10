@@ -1,6 +1,6 @@
 import { SmileOutlined } from '@ant-design/icons';
 import { notification, DatePicker} from 'antd';
-import {useState} from 'react'
+import {useState, useEffect} from 'react'
 import './App.css'
 import dateFormat from "dateformat";
 import { Radio, Form, Input, Button, Select } from 'antd';
@@ -32,6 +32,14 @@ const App = () => {
     const [time, setTime] = useState();
     const [participants, setParticipants] = useState(1);
 
+    //@ts-ignore
+    const [reserv, setReserv] = useState(JSON.parse(localStorage.getItem('reservation')))   
+   
+    useEffect(() => {
+        localStorage.setItem("reservation", JSON.stringify(reserv))
+        console.log(reserv)
+      }, [reserv]);
+
     const [api, contextHolder] = notification.useNotification();
     const openNotification : Function = () : void => {
         api.open({
@@ -57,8 +65,7 @@ const App = () => {
         }
         console.log(JSON.stringify(data))
         openNotification()
-        // localStorage.setItem(tower, JSON.stringify(data))
-
+        setReserv([...reserv, data])
     }
 
     const onChange = (date:any, dateString:any) => {
@@ -139,15 +146,34 @@ const App = () => {
                 className="styleBlock"
                 rules={[{ required: true, message: 'Выберите время!' }]}
                 >
-                <Select onChange={(e) => setTime(e)} className='!inputStyle rounded-xl' placeholder={(new Date()).getHours() + ":"+ (String((new Date()).getMinutes()).length === 2 ? (new Date()).getMinutes() : "0" + (new Date()).getMinutes())}>
-                    {timeIntervals.map( (el) => {
+                <Select onChange={(e) => setTime(e)} 
+                        className='!inputStyle rounded-xl' 
+                        placeholder={(String((new Date()).getHours()).length === 2 
+                                            ? (new Date()).getHours() 
+                                            : "0" + (new Date()).getHours()) 
+                                            + ":"+ (String((new Date()).getMinutes()).length === 2 
+                                                ? (new Date()).getMinutes() 
+                                                : "0" + (new Date()).getMinutes())}>
+
+                    {timeIntervals.map((el) => {
                         return (
                             
                         JSON.stringify(new Date()).substr(1, 10) === date 
-                        
-                        ? String((new Date()).getHours()) < (el[0] + el[1]) && <Option value={el} key={el}>{el}</Option>   
 
-                        : <Option value={el} key={el}>{el}</Option>)
+                    //     ? String((new Date()).getHours()) < (el[0] + el[1]) && <Option value={el} key={el}>{el}</Option>
+
+                    // : String((new Date()).getHours()) < (el[0] + el[1]) &&  <Option value={el} key={el}>{el}</Option>) 
+
+                        //@ts-ignore
+                        ? ((reserv.find((el:any) => el.Tower === tower) !== undefined) && (reserv.find((el:any) => el.Floor === floor) !== undefined))           
+
+                            ? String((new Date()).getHours()) < (el[0] + el[1]) && <Option disabled value={el} key={el}>{el}</Option>  
+                            : String((new Date()).getHours()) < (el[0] + el[1]) && <Option value={el} key={el}>{el}</Option>
+                            //@ts-ignore
+                        : (reserv.filter((el:any) => el.Tower === tower && el.Floor === floor && el.Room === room && el.Data === date && el.Time === time).length) > 0
+                            ? String((new Date()).getHours()) < (el[0] + el[1]) &&  <Option disabled value={el} key={el}>{el}</Option>  
+                            : String((new Date()).getHours()) < (el[0] + el[1]) &&  <Option value={el} key={el}>{el}</Option>)   
+                                                       
                     })}
                 </Select>
             </Form.Item>
